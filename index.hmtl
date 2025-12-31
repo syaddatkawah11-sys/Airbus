@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pertanyaan penting</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #00d5ff;
+        font-family: Arial, Helvetica, sans-serif;
+        overflow: hidden;
+    }
+
+    .card {
+        background: #fff;
+        padding: 35px 30px;
+        border-radius: 18px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        z-index: 5;
+    }
+
+    h1 {
+        color: #ff3b6f;
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+
+    #yesBtn {
+        padding: 14px 26px;
+        font-size: 17px;
+        border: none;
+        border-radius: 14px;
+        background: #ff3b6f;
+        color: #fff;
+        cursor: pointer;
+        z-index: 10;
+        position: relative;
+    }
+
+    #noBtn {
+        padding: 14px 26px;
+        font-size: 17px;
+        border: none;
+        border-radius: 14px;
+        background: #e0e0e0;
+        position: fixed;
+        cursor: pointer;
+        z-index: 20;
+    }
+
+    .copyright {
+        margin-top: 15px;
+        font-size: 11px;
+        color: #888;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Mau jadi pacar aku? 💕</h1>
+    <button id="yesBtn">Iya ❤️</button>
+    <div class="copyright">
+        © 2025 Syaddat. All rights reserved.
+    </div>
+</div>
+
+<button id="noBtn">Tidak 💔</button>
+
+<script>
+const pesan = "Aku mau jadi pacar kamu"; 
+const encodedNumber = "NjI4MTM0NjE2NTQ3OQ==";
+const nomor = atob(encodedNumber);
+
+
+yesBtn.addEventListener("click", () => {
+    const url = `https://wa.me/${nomor}?text=${pesan}`;
+window.location.href = url;
+});
+
+function moveNoButton() {
+    const yesRect = yesBtn.getBoundingClientRect();
+    const noRect = noBtn.getBoundingClientRect();
+    const minDistance = 220;
+
+    let x, y, distance, tries = 0;
+
+    do {
+        x = Math.random() * (window.innerWidth - noRect.width);
+        y = Math.random() * (window.innerHeight - noRect.height);
+
+        const noCX = x + noRect.width / 2;
+        const noCY = y + noRect.height / 2;
+        const yesCX = yesRect.left + yesRect.width / 2;
+        const yesCY = yesRect.top + yesRect.height / 2;
+
+        distance = Math.hypot(noCX - yesCX, noCY - yesCY);
+        tries++;
+    } while (distance < minDistance && tries < 100);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+window.addEventListener("load", () => {
+    requestAnimationFrame(() => {
+        moveNoButton();
+    });
+});
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+</script>
+
+</body>
+</html>
